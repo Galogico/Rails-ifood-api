@@ -31,16 +31,22 @@ class Api::ComidasController < ApplicationController
 
   def destroy
 
-    @comida.destroy
+    @comida.destroy!
     render json: {message: "Comida destruida com sucesso"}
 
   end
+
+  def latest
+    @comida = Comida.last
+    render json: @comida
+  end
+
 
 
   private
     def comida_params 
       #{comida: {type: "Açai, qtd: 777"}}
-      params.require(:comida).permit(:typeC,:qtd,:img_url)
+      params.require(:comida).permit(:typeC,:qtd,:img_url,:image)
     end
 
 
